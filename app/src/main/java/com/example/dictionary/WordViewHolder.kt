@@ -14,9 +14,9 @@ class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             searchedword.text = word.word
             phonetic.text = word.phonetic
             origin.text = word.origin
-            sourceUrl.text = word.sourceUrls.toString()
+            sourceUrl.text = word.sourceUrls.toString().removePrefix("[").removeSuffix("]")
             licenseName.text = word.license.name
-            licenseUrl.text = word.license.url
+            licenseUrl.text = word.license.url.removePrefix("[").removeSuffix("]")
         }
     }
 

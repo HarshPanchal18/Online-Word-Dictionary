@@ -15,7 +15,6 @@ class WordAdapter(private val items: MutableList<Word>): RecyclerView.Adapter<Wo
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val currentWord = items[position]
-
         holder.bind(currentWord)
     }
 

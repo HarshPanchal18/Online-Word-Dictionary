@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-interface ApiService {
+/*interface ApiService {
     //@GET("https://api.dictionaryapi.dev/api/v2/entries/en/hello")
     @GET("endpoint")
     suspend fun getData(): Call<List<Word>>
@@ -40,3 +40,4 @@ suspend fun fetchFromApi() {
         }
     })
 }
+*/
