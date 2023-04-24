@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private fun fetchWordMeaningFromAPI() {
 
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.dictionaryapi.dev/api/v2/entries/en/hello/")
+            .baseUrl("https://api.dictionaryapi.dev/api/v2/entries/en/matter/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Word>>, t: Throwable) {
                 // Handle API call failure
+                binding.errorResponse.text = t.message.toString()
                 Toast.makeText(this@MainActivity,t.message.toString(),Toast.LENGTH_LONG).show()
                 // Log.e("Exception",t.message.toString())
             }
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     interface ApiService {
         //@GET("https://api.dictionaryapi.dev/api/v2/entries/en/hello")
-        @GET("https://api.dictionaryapi.dev/api/v2/entries/en/hello/")
+        @GET("https://api.dictionaryapi.dev/api/v2/entries/en/matter/")
         fun getData(): Call<List<Word>>
     }
 
