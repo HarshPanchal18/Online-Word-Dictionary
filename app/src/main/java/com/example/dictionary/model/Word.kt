@@ -32,6 +32,6 @@ data class phonetic(
 data class definition(
     val antonyms: List<String>,
     val definition: String,
-    val example: String,
+    val example: String?,
     val synonyms: List<String>,
 )
