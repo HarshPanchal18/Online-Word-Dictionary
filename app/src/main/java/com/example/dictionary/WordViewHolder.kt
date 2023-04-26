@@ -17,17 +17,14 @@ import com.example.dictionary.model.Word
 
 class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val binding = DictionaryPageBinding.bind(itemView)
+    private val binding: DictionaryPageBinding = DictionaryPageBinding.bind(itemView)
 
     fun bind(word: Word) {
         binding.apply {
             searchedword.text = word.word
             phonetic.text = word.phonetic
-            origin.text = word.origin
-            //sourceUrl.text = word.sourceUrls.toString().removePrefix("[").removeSuffix("]")
+            if(word.origin != null) origin.text = word.origin
             licenseName.text = word.license.name
-            //licenseUrl.text = word.license.url.removePrefix("[").removeSuffix("]")
-
             clickableText(word.license.url, licenseUrl)
             clickableText(word.sourceUrls.toString(), sourceUrl)
 
@@ -41,12 +38,22 @@ class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     mergedExamples.append(("- " + definition.example + "\n"))
             }
 
-            nounDefinition.text = mergedDefinitions
-            nounExample.text = mergedExamples
-            nounAntonyms.text = word.meanings[0].antonyms.toString()
-                .removeSurrounding("[", "]")
-            nounSynonyms.text = word.meanings[0].synonyms.toString()
-                .removeSurrounding("[", "]")
+            if (mergedDefinitions.isNotEmpty()) {
+                nounDefinition.text = mergedDefinitions
+            }
+
+            if (mergedExamples.isNotEmpty()) {
+                nounExample.text = mergedExamples
+            }
+
+            if (word.meanings[0].antonyms?.isNotEmpty() == true) {
+                nounAntonyms.text = word.meanings[0].antonyms.toString()
+                    .removeSurrounding("[", "]")
+            }
+            if (word.meanings[0].synonyms?.isNotEmpty() == true) {
+                nounSynonyms.text = word.meanings[0].synonyms.toString()
+                    .removeSurrounding("[", "]")
+            }
 
             mergedDefinitions.clear()
             mergedExamples.clear()
@@ -58,12 +65,22 @@ class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     mergedExamples.append(("- " + definition.example + "\n"))
             }
 
-            verbDefinition.text = mergedDefinitions
-            verbExample.text = mergedExamples
-            verbAntonyms.text = word.meanings[1].antonyms.toString()
-                .removeSurrounding("[", "]")
-            verbSynonyms.text = word.meanings[1].synonyms.toString()
-                .removeSurrounding("[", "]")
+            if (mergedDefinitions.isNotEmpty()) {
+                verbDefinition.text = mergedDefinitions
+            }
+
+            if (mergedExamples.isNotEmpty()) {
+                verbExample.text = mergedExamples
+            }
+
+            if (word.meanings.size > 1 && word.meanings[1].antonyms?.isNotEmpty() == true) {
+                verbAntonyms.text = word.meanings[1].antonyms.toString()
+                    .removeSurrounding("[", "]")
+            }
+            if (word.meanings.size > 1 && word.meanings[1].synonyms?.isNotEmpty() == true) {
+                verbSynonyms.text = word.meanings[1].synonyms.toString()
+                    .removeSurrounding("[", "]")
+            }
         }
 
     }

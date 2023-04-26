@@ -38,10 +38,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phonetic"
-                android:layout_margin="10sp"
-                android:text="ORIGIN"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginBottom="10sp"
+                android:text="Origins - Not Found"
+                android:textSize="15sp"
+                android:textStyle="bold|italic" />
 
             <LinearLayout
                 android:id="@+id/nounVerbLayout"
@@ -73,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Definition:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -92,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Noun EX:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -111,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Noun Syn:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -130,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Noun Ant:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -146,8 +149,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2sp"
                     android:layout_marginStart="5sp"
+                    android:layout_marginTop="2sp"
                     android:text="Definition:"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -156,9 +159,9 @@
                     android:id="@+id/verbDefinition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2sp"
                     android:layout_marginStart="10sp"
-                    android:text="Definition:"
+                    android:layout_marginTop="2sp"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -177,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Noun EX:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -196,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Noun Syn:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -215,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginTop="2sp"
-                    android:text="Noun Ant:"
+                    android:text="Not available"
                     android:textSize="15sp"
                     android:textStyle="italic" />
 
@@ -237,12 +240,12 @@
                 android:id="@+id/licenseName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/nounVerbLayout"
                 android:layout_marginStart="10sp"
                 android:layout_marginTop="10sp"
                 android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10sp"
                 android:layout_toEndOf="@id/licenseHead"
-                android:layout_below="@id/nounVerbLayout"
                 android:text="LICENSE NAME"
                 android:textSize="15sp"
                 android:textStyle="bold" />

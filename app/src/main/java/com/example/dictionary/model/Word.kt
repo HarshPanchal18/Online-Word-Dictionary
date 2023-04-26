@@ -5,7 +5,7 @@ data class Word(
     val license: license,
     val meanings: List<meanings>,
     val phonetic: String,
-    val origin: String,
+    val origin: String?,
     val phonetics: List<phonetic>,
     val sourceUrls: List<String>,
 )
@@ -16,10 +16,10 @@ data class license(
 )
 
 data class meanings(
-    val antonyms: List<String>,
+    val antonyms: List<String>?,
     val definitions: List<definition>,
     val partOfSpeech: String,
-    val synonyms: List<String>,
+    val synonyms: List<String>?,
 )
 
 data class phonetic(
@@ -30,8 +30,8 @@ data class phonetic(
 )
 
 data class definition(
-    val antonyms: List<String>,
+    val antonyms: List<String>?,
     val definition: String,
     val example: String?,
-    val synonyms: List<String>,
+    val synonyms: List<String>?,
 )

@@ -1,8 +1,11 @@
 package com.example.dictionary
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.databinding.ActivityMainBinding
 import com.example.dictionary.model.Word
@@ -14,6 +17,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,11 +35,13 @@ class MainActivity : AppCompatActivity() {
         binding.wordRecycle.layoutManager = LinearLayoutManager(this)
 
         binding.searchBtn.setOnClickListener {
-            fetchWordMeaningFromAPI(binding.enteredWord.text.trim().toString())
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(it.applicationWindowToken, 0) // hiding keyboard
+            fetchWordMeaningFromAPI(binding.enteredWord.text?.trim().toString())
         }
     }
 
-    private fun fetchWordMeaningFromAPI(word: String) {
+    private fun fetchWordMeaningFromAPI(word: String?) {
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(baseURL)
@@ -44,13 +50,13 @@ class MainActivity : AppCompatActivity() {
 
         val apiService = retrofit.create(ApiService::class.java)
 
-        apiService.getData(word).enqueue(object : Callback<List<Word>> {
+        apiService.getData(word ?: "").enqueue(object : Callback<List<Word>> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<List<Word>>, response: Response<List<Word>>) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     dataList.clear()
-                    dataList.addAll(data?: emptyList())
+                    dataList.addAll(data ?: emptyList())
                     adapter.notifyDataSetChanged()
                 } else {
                     // Handle error response
