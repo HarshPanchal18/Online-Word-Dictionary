@@ -2,9 +2,9 @@ package com.example.dictionary
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.InputType
-import android.view.WindowManager
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.databinding.ActivityMainBinding
@@ -17,7 +17,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -54,20 +54,22 @@ class MainActivity : AppCompatActivity() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<List<Word>>, response: Response<List<Word>>) {
                 if (response.isSuccessful) {
+                    binding.errorResponse.visibility = View.GONE
                     val data = response.body()
                     dataList.clear()
                     dataList.addAll(data ?: emptyList())
                     adapter.notifyDataSetChanged()
                 } else {
                     // Handle error response
-                    binding.errorResponse.text = response.errorBody().toString()
-                    //Toast.makeText(this@MainActivity,response.errorBody().toString(),Toast.LENGTH_LONG).show()
+                    if(response.errorBody().toString().contains("okhttp3.ResponseBody$1"))
+                        binding.errorResponse.text = "Please enter a valid word"
                 }
             }
 
             override fun onFailure(call: Call<List<Word>>, t: Throwable) {
                 // Handle API call failure
-                binding.errorResponse.text = t.message.toString()
+                if(t.message.toString().contains("Unable to resolve host"))
+                    binding.errorResponse.text = "Please check your internet connection or try again leter"
                 //Toast.makeText(this@MainActivity,t.message.toString(),Toast.LENGTH_LONG).show()
             }
         })
@@ -78,4 +80,15 @@ class MainActivity : AppCompatActivity() {
         fun getData(@Path("word") word: String): Call<List<Word>>
     }
 
+    // Ask again for exit
+    private var backPressedTime: Long = 0
+    override fun onBackPressed() {
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+            exitProcess(0)
+        }
+        Toast.makeText(this,"Press again to exit",Toast.LENGTH_SHORT).show()
+        backPressedTime = System.currentTimeMillis()
+    }
 }
