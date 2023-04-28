@@ -23,7 +23,7 @@ class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.apply {
             searchedword.text = word.word
             phonetic.text = word.phonetic
-            if(word.origin != null) origin.text = word.origin
+            if (word.origin != null) origin.text = word.origin
             licenseName.text = word.license.name
             clickableText(word.license.url, licenseUrl)
             clickableText(word.sourceUrls.toString(), sourceUrl)

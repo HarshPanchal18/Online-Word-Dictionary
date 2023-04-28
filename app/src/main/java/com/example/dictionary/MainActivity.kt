@@ -35,9 +35,15 @@ class MainActivity : AppCompatActivity() {
         binding.wordRecycle.layoutManager = LinearLayoutManager(this)
 
         binding.searchBtn.setOnClickListener {
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(it.applicationWindowToken, 0) // hiding keyboard
-            fetchWordMeaningFromAPI(binding.enteredWord.text?.trim().toString())
+            if (binding.enteredWord.text?.isNotEmpty() == true) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(it.applicationWindowToken, 0) // hiding keyboard
+                fetchWordMeaningFromAPI(binding.enteredWord.text?.trim().toString())
+            } else {
+                binding.wordRecycle.visibility = View.GONE
+                binding.errorResponse.visibility = View.VISIBLE
+                binding.errorResponse.text = "Please Enter a word to find"
+            }
         }
     }
 
@@ -48,29 +54,34 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(ApiService::class.java)
+        val apiService: ApiService = retrofit.create(ApiService::class.java)
 
         apiService.getData(word ?: "").enqueue(object : Callback<List<Word>> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<List<Word>>, response: Response<List<Word>>) {
                 if (response.isSuccessful) {
                     binding.errorResponse.visibility = View.GONE
+                    binding.wordRecycle.visibility = View.VISIBLE
                     val data = response.body()
                     dataList.clear()
                     dataList.addAll(data ?: emptyList())
                     adapter.notifyDataSetChanged()
                 } else {
                     // Handle error response
-                    if(response.errorBody().toString().contains("okhttp3.ResponseBody$1"))
+                    if (response.errorBody().toString().contains("okhttp3.ResponseBody$1")) {
+                        binding.wordRecycle.visibility = View.GONE
                         binding.errorResponse.text = "Please enter a valid word"
+                    }
                 }
             }
 
             override fun onFailure(call: Call<List<Word>>, t: Throwable) {
                 // Handle API call failure
-                if(t.message.toString().contains("Unable to resolve host"))
-                    binding.errorResponse.text = "Please check your internet connection or try again leter"
-                //Toast.makeText(this@MainActivity,t.message.toString(),Toast.LENGTH_LONG).show()
+                if (t.message.toString().contains("Unable to resolve host")) {
+                    binding.wordRecycle.visibility = View.GONE
+                    binding.errorResponse.text =
+                        "Please check your internet connection or try again leter"
+                }
             }
         })
     }
@@ -88,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
             exitProcess(0)
         }
-        Toast.makeText(this,"Press again to exit",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show()
         backPressedTime = System.currentTimeMillis()
     }
 }

@@ -10,18 +10,18 @@
         android:id="@+id/editLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginHorizontal="5sp"
         android:layout_toStartOf="@id/searchBtn"
         android:hint="Enter word"
-        android:layout_marginHorizontal="5sp"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enteredWord"
-            android:inputType="textAutoCorrect|textAutoComplete"
-            android:maxLines="1"
-            android:lines="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="textAutoCorrect|textAutoComplete"
+            android:lines="1"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -30,8 +30,8 @@
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/purple"
         android:contentDescription="Search Button"
-        android:backgroundTint="@color/lightgray"
         android:src="@drawable/search_button" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -40,12 +40,14 @@
         android:layout_height="match_parent"
         android:layout_below="@id/editLayout"
         android:layout_marginTop="5sp"
-        android:background="@color/lightgray" />
+        android:background="@color/lightgray"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/errorResponse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:layout_centerInParent="true" />
 
 </RelativeLayout>
